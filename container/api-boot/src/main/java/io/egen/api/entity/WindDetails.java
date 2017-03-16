@@ -2,18 +2,16 @@ package io.egen.api.entity;
 
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class WindDetails {
 	
 	@Id
+	@JsonIgnore
 	private String windId;
 	private String speed;
 	private String degree;
@@ -22,6 +20,7 @@ public class WindDetails {
 		this.windId = UUID.randomUUID().toString();
 	}
 		
+	@JsonIgnore
 	public String getId() {
 		return windId;
 	}

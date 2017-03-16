@@ -7,15 +7,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.egen.api.entity.WeatherDetails;
 import io.egen.api.exception.BadRequestException;
-import io.egen.api.repository.UserRepository;
 import io.egen.api.repository.WeatherRepository;
 import io.egen.api.service.WeatherService;
+import io.egen.api.util.UtilServices;
 
 @Service
 public class WeatherServiceImpl implements WeatherService{
@@ -78,9 +77,15 @@ public class WeatherServiceImpl implements WeatherService{
 	}
 
 	@Override
-	public WeatherDetails hourlyAvg(String city) {
+	public WeatherDetails hourlyAvg(String city,String date,String hour) {
 		
-		return null;
+		List<WeatherDetails> weatherList= weatherRepo.hourlyAvg(city, date+"T"+hour);
+		
+		if(weatherList.isEmpty()){
+			throw new BadRequestException("Given parameter do not have any data");
+		}
+		
+		return  UtilServices.WeatherUtil.getAvgWeather(weatherList, city, date);
 		
 		
 	}
@@ -93,17 +98,17 @@ public class WeatherServiceImpl implements WeatherService{
 		try {
 			parsed = format.parse(date);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new BadRequestException("Date format is not correct.Enter in yyyy-MM-dd format");
 		}
 		java.sql.Date sqlDate = new java.sql.Date(parsed.getTime());
 
 			
-		WeatherDetails avgWeather= weatherRepo.dailyAvg(city,sqlDate);
-		if(avgWeather==null){
-			throw new BadRequestException("City weather does not exist on :"+ date);
+		List<WeatherDetails> weatherList= weatherRepo.dailyAvg(city,sqlDate);
+		if(weatherList==null){
+			throw new BadRequestException("Given parameter do not have any data");
 		}
 		else{
-			return avgWeather;
+			return UtilServices.WeatherUtil.getAvgWeather(weatherList, city, date);
 		}
 	}
 

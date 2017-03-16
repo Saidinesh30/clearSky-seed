@@ -1,26 +1,19 @@
 package io.egen.api.entity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-/*@NamedQueries({
-		@NamedQuery(name = "WeatherDetails.findAllCities", query = "SELECT distinct u.city FROM WeatherDetails u ORDER BY u.city"),
-		@NamedQuery(name="WeatherDetails.lastestWeather",query="SELECT u FROM WeatherDetails u where u.city=:iCity ORDER BY u.timestamp DESC"),
-		@NamedQuery(name="WeatherDetails.dailyweather",query="SELECT u from WeatherDetails u where u.city=:iCity and date(u.timestamp)=:dailyDate")
-})*/
-public class WeatherDetails {
+public class WeatherDetails{
 
 	@Id
+
 	private String weatherId;
 	private String city;
 	private String description;
@@ -31,14 +24,13 @@ public class WeatherDetails {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private WindDetails wind;
 
-	// @Temporal(TemporalType.TIMESTAMP)
-	
 	private String timestamp;
 
 	public WeatherDetails() {
 		this.weatherId = UUID.randomUUID().toString();
 	}
 
+	@JsonIgnore
 	public String getId() {
 		return weatherId;
 	}

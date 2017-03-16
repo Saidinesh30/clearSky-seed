@@ -1,7 +1,6 @@
 package io.egen.api.service;
 
 import java.util.List;
-import java.util.Set;
 
 import io.egen.api.entity.WeatherDetails;
 
@@ -15,7 +14,7 @@ public interface WeatherService {
 
 	String latestProperty(String city, String property);
 
-	WeatherDetails hourlyAvg(String city);
+	WeatherDetails hourlyAvg(String city, String date, String hour);
 
 	WeatherDetails dailyAvg(String city, String date);
 

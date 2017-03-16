@@ -18,13 +18,11 @@ public interface WeatherRepository extends Repository<WeatherDetails, String>{
 
 	WeatherDetails findTopByCityOrderByTimestampDesc(String city);
 
-	//String latestProperty(String city, String property);
-
-
-	List<WeatherDetails> findByCity(String city);
+	@Query("SELECT u from WeatherDetails u where u.city=:city and timestamp like concat(:date,'%')")
+	List<WeatherDetails> hourlyAvg(@Param("city") String city, @Param("date") String date);
 
 	@Query("SELECT u from WeatherDetails u where u.city=:city and date(u.timestamp)=:date")
-	WeatherDetails dailyAvg(@Param("city") String city, @Param("date") Date sqlDate);
+	List<WeatherDetails> dailyAvg(@Param("city") String city, @Param("date") Date sqlDate);
 
 
 }

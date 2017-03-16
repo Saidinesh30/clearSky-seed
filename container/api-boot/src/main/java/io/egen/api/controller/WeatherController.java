@@ -62,13 +62,13 @@ public class WeatherController {
 		return service.latestProperty(city, property);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/hourlyavg/{city}/{time}")
+	@RequestMapping(method = RequestMethod.GET, value = "/hourlyavg/{city}/{date}/{hour}")
 	@ApiOperation(value = "Find hourly averaged weather by city", notes = "Returns  average weather details for specified hour")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error"), })
-	public WeatherDetails hourlyAvg(@PathVariable("city") String city) {
-		return service.hourlyAvg(city);
+	public WeatherDetails hourlyAvg(@PathVariable("city") String city, @PathVariable("date") String date, @PathVariable("hour") String hour) {
+		return service.hourlyAvg(city,date,hour);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/dailyavg/{city}/{date}")

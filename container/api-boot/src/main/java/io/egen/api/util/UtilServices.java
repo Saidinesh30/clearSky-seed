@@ -2,12 +2,10 @@ package io.egen.api.util;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import io.egen.api.entity.WeatherDetails;
 import io.egen.api.entity.WindDetails;
 
-@Component
+
 public class UtilServices {
 
 	public static class WeatherUtil {
@@ -28,7 +26,7 @@ public class UtilServices {
 				}
 				avgWeather.setCity(city);
 				avgWeather.setTimestamp(weatherList.get(0).getTimestamp().toString());
-				avgWeather.setDescription("");
+				avgWeather.setDescription("N/A");
 				avgWeather.setTemperature(String.format("%.2f", (avgTemp / total)));
 				avgWeather.setHumidity(String.format("%.2f", (avgHum / total)));
 				avgWeather.setPressure(String.format("%.2f", (avgPres / total)));
