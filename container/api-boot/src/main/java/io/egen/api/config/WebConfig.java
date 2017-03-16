@@ -15,7 +15,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
-	@Override
+	/*@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 			.allowedOrigins("http://mocker.egen.io")
@@ -27,5 +27,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             
 			
 			
-	}
+	}*/
 }
